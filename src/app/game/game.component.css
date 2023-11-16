@@ -1,0 +1,13 @@
+    div {
+    display: flex;
+  }
+  
+  span {
+    cursor: pointer;
+    display: flex; /* Assure que chaque cellule est alignée correctement */
+    justify-content: center;
+    align-items: center;
+    width: 20px;  /* Taille de la cellule, ajustez selon vos besoins */
+    height: 20px; /* Taille de la cellule, ajustez selon vos besoins */
+  }
+  

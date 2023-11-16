@@ -1,0 +1,8 @@
+<div *ngFor="let row of grid; let rowIndex = index">
+    <span *ngFor="let cell of row; let colIndex = index" 
+          (click)="toggleCell(rowIndex, colIndex)">
+      {{ cell ? '🟩' : '⬜️' }}
+    </span>
+  </div>
+  <button (click)="nextGeneration()">Suivant</button>
+  
