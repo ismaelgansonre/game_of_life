@@ -1,62 +1,98 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements AfterViewInit {
+  @ViewChild('gameGrid') gameGrid!: ElementRef;
+  gameInterval: any;
 
-  rows: number = 10;
-  cols: number = 10;
-  grid: boolean[][] = [];
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.initGrid();
+  ngAfterViewInit() {
+    const gridElement = this.gameGrid.nativeElement;
+  
+    // Créer les cellules de la grille
+    for (let i = 0; i < 100; i++) {
+      const cell = document.createElement('div');
+      cell.classList.add('cell');
+      cell.addEventListener('click', () => cell.classList.toggle('alive'));
+      gridElement.appendChild(cell);
+    }
   }
+  
 
-  initGrid(): void {
-    this.grid = Array.from({ length: this.rows }, () => 
-      Array.from({ length: this.cols }, () => false)
-    );
+  startGame() {
+    if (this.gameInterval) {
+      clearInterval(this.gameInterval);
+      this.gameInterval = null;
+    } else {
+      this.gameInterval = setInterval(() => this.updateGrid(), 500);
+    }
   }
-
-  toggleCell(row: number, col: number): void {
-    this.grid[row][col] = !this.grid[row][col];
-  }
-
-  nextGeneration(): void {
-    let newGrid = this.grid.map(arr => [...arr]);
-
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
-        let aliveNeighbors = this.getAliveNeighbors(row, col);
-
-        if (this.grid[row][col] && (aliveNeighbors < 2 || aliveNeighbors > 3)) {
-          newGrid[row][col] = false;
-        } else if (!this.grid[row][col] && aliveNeighbors === 3) {
-          newGrid[row][col] = true;
+  
+  private updateGrid() {
+    const gridElement = this.gameGrid.nativeElement;
+    const newGridState = [];
+  
+    for (let y = 0; y < 10; y++) {
+      for (let x = 0; x < 10; x++) {
+        const cellIsAlive = this.isCellAlive(x, y);
+        const aliveNeighbors = this.countAliveNeighbors(x, y, gridElement);
+  
+        if (cellIsAlive && (aliveNeighbors === 2 || aliveNeighbors === 3)) {
+          newGridState.push(true);
+        } else if (!cellIsAlive && aliveNeighbors === 3) {
+          newGridState.push(true);
+        } else {
+          newGridState.push(false);
         }
       }
     }
-
-    this.grid = newGrid;
+  
+    newGridState.forEach((state, index) => {
+      const cell = gridElement.children[index];
+      cell.classList.toggle('alive', state);
+    });
   }
-
-  getAliveNeighbors(row: number, col: number): number {
+  
+  private isCellAlive(x: number, y: number): boolean {
+    const gridElement = this.gameGrid.nativeElement;
+    return gridElement.children[y * 10 + x].classList.contains('alive');
+  }
+  
+  private countAliveNeighbors(x: number, y: number, gridElement: any): number {
     let count = 0;
-    for (let i = -1; i <= 1; i++) {
-      for (let j = -1; j <= 1; j++) {
-        if (i === 0 && j === 0) continue;
-        const newRow = row + i;
-        const newCol = col + j;
-        if (newRow >= 0 && newRow < this.rows && newCol >= 0 && newCol < this.cols) {
-          count += this.grid[newRow][newCol] ? 1 : 0;
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        if (dx === 0 && dy === 0) continue;
+        const neighborX = x + dx;
+        const neighborY = y + dy;
+        if (neighborX >= 0 && neighborX < 10 && neighborY >= 0 && neighborY < 10) {
+          if (gridElement.children[neighborY * 10 + neighborX].classList.contains('alive')) {
+            count++;
+          }
         }
       }
     }
     return count;
   }
+  
+  
+
+  resetGame() {
+    if (this.gameInterval) {
+      clearInterval(this.gameInterval);
+      this.gameInterval = null;
+    }
+  
+    const cells = this.gameGrid.nativeElement.children;
+    for (const cell of cells) {
+      cell.classList.remove('alive');
+    }
+  }
+  
+
+  // Additional game logic methods
+  // ...
 }

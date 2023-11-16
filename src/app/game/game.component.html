@@ -1,8 +1,10 @@
-<div *ngFor="let row of grid; let rowIndex = index">
-    <span *ngFor="let cell of row; let colIndex = index" 
-          (click)="toggleCell(rowIndex, colIndex)">
-      {{ cell ? '🟩' : '⬜️' }}
-    </span>
+<!-- game-of-life.component.html -->
+<div class="bg-black text-white h-screen flex flex-col items-center justify-center">
+  <div class="text-3xl mb-8">Le jeu de la vie de John Horton Conway</div>
+  <div id="gameGrid" #gameGrid class="mb-8"></div>
+  <div class="text-xl mb-4">Grille de jeu: 10 lignes et 10 colonnes</div>
+  <div>
+      <button (click)="startGame()" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-4">Start Game</button>
+      <button (click)="resetGame()" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Reset</button>
   </div>
-  <button (click)="nextGeneration()">Suivant</button>
-  
+</div>
