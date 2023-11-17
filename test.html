@@ -69,7 +69,16 @@
             grid[x][y] = !grid[x][y];
             drawGrid();
         }
+        const generateRandomButton = document.getElementById('generateRandom');
 
+function generateRandomSetup() {
+    for (let i = 0; i < cells.length; i++) {
+        cells[i] = Math.random() < 0.3; // 30% chance for each cell to be alive
+    }
+    updateGrid();
+}
+
+generateRandomButton.addEventListener('click', generateRandomSetup);
         function updateGrid() {
             const newGrid = grid.map(arr => [...arr]);
             for (let x = 0; x < grid.length; x++) {
