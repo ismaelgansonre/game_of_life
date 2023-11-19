@@ -1,7 +1,7 @@
 Cette page HTML présente une implémentation interactive du "Jeu de la vie" de John Horton Conway, un célèbre automate cellulaire. Voici une explication détaillée de ses fonctionnalités, structurée selon les langages utilisés : HTML, CSS et JavaScript.
 lancement du jeu 
 ## 📺 Démo[]: # Demo
-Vous pouvez voir une démo de cette page sur [vercel]().
+Vous pouvez voir une démo de cette page sur [[vercel](https://game-of-life-679z.vercel.app/)].
 
 ### HTML
 - **Structure de base :** La page contient des éléments de base comme `<head>` et `<body>`.
