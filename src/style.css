@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* 
+    FILEPATH: /home/ismael/Documents/game_of_life/public/style.css
+
+    CSS styles for the game of life grid and pre-loader.
+
+    #gridContainer: 
+        - Container for the game of life grid.
+        - Max-width set to 100% and centered horizontally.
+        - Allows content to be visible outside the container.
+        - Transforms origin set to center.
+        - Smooth transition effect on transform property.
+        - Display set to inline-block to adjust container size based on content.
+
+    .grid-cell:
+        - Styles for individual cells in the grid.
+        - Width and height set to 30px.
+        - Border set to 0.5px solid #333.
+
+    .grid-cell.alive:
+        - Styles for alive cells in the grid.
+        - Background color set to #10B981.
+
+    @keyframes preloader:
+        - Animation keyframes for the pre-loader.
+        - Starts with top at 0% and opacity at 1.
+        - Ends with border-radius at 60%, top at -100%, and opacity at 0.
+
+    .pre-loader:
+        - Styles for the pre-loader container.
+        - Position set to fixed and covers the entire viewport.
+        - Background color set to black.
+        - Flexbox used for centering content vertically and horizontally.
+        - Animation applied to the preloader class with a 1s duration and 3s delay.
+
+    .pre-loader-container:
+        - Styles for the content inside the pre-loader container.
+        - Flexbox used for centering content vertically and horizontally.
+        - Font-family set to "Cormorant", serif.
+
+    .header:
+        - Styles for the header element.
+        - Text aligned to the center.
+        - Transformed with scaleY(1.2).
+
+    .pre-loader-header h1:
+        - Styles for the h1 element inside the pre-loader header.
+        - Font-size set to 5rem.
+        - Display set to inline.
+        - Color set to transparent.
+        - Text stroke applied with a width of 1px and color #fff.
+        - Text transformed to uppercase.
+        - Line height set to 7rem.
+        - Letter spacing set to -9px.
+
+    .animate:
+        - Styles for elements with the animate class.
+        - Position set to relative.
+
+    .animate::before:
+        - Styles for the pseudo-element before the element with the animate class.
+        - Content set to the value of the data-text attribute.
+        - Position set to absolute.
+        - Left set to 0.
+        - Width initially set to 0%.
+        - Color set to rgb(100, 177, 27).
+        - Height set to 100%.
+        - Transition applied with a duration of 1s.
+        - Animation applied to fill the width from 0% to 100% with a 2s duration and 0.5s delay.
+
+    .pre-loader-btn:
+        - Styles for the pre-loader button.
+        - Color set to white.
+        - Margin-top set to 2rem.
+        - Font-family set to "Petrona", serif.
+        - Font-size set to 1.2rem.
+        - Text transformed to capitalize.
+*/
+
+#gridContainer {
+max-width: 100%;
+margin: auto;
+overflow: visible; /* Allow content to be visible outside the container */
+transform-origin: center;
+transition: transform 0.3s ease-in-out;
+display: inline-block; /* Container size based on content */
+
+}
+.grid-cell {
+    width: 30px;
+    height: 30px;
+    border: 0.5px solid #333;
+}
+.grid-cell.alive {
+    background-color: #10B981;
+}
+@keyframes preloader {
+0% {
+  top: 0%;
+  opacity: 1;
+}
+100% {
+  border-radius: 60%;
+  /* opacity: 0; */
+  top: -100%;
+}
+}
+.pre-loader {
+position: fixed;
+top: 0%;
+width: 100%;
+height: 100%;
+background-color: black;
+display: flex;
+justify-content: center;
+align-items: center;
+animation: preloader 1s ease-in forwards;
+animation-delay: 3s;
+}
+.pre-loader-container {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-family: "Cormorant", serif;
+}
+.header {
+text-align: center;
+transform: scaleY(1.2);
+}
+.pre-loader-header h1 {
+font-size: 5rem;
+display: inline;
+color: transparent;
+-webkit-text-stroke: 1px #fff;
+text-transform: uppercase;
+line-height: 7rem;
+letter-spacing: -9px;
+}
+.animate {
+position: relative;
+}
+.animate::before {
+content: attr(data-text);
+position: absolute;
+left: 0;
+width: 0%;
+color: rgb(100, 177, 27);
+height: 100%;
+transition: 1s;
+animation: fill 2s forwards ease-in-out;
+animation-delay: 0.5s;
+overflow: hidden;
+}
+@keyframes fill {
+0% {
+  width: 0%;
+}
+100% {
+  width: 100%;
+}
+}
+.pre-loader-btn {
+color: white;
+margin-top: 2rem;
+font-family: "Petrona", serif;
+font-size: 1.2rem;
+text-transform: capitalize;
+}

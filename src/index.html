@@ -1,13 +1,112 @@
-<!doctype html>
-<html lang="en">
+<!-- FILEPATH: index.html -->
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>GameOfLife</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le jeu de la vie de John Horton Conway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    
 </head>
-<body>
-  <app-root></app-root>
+
+<body class="bg-black text-white font-sans">
+    <!-- Préchargeur -->
+    <div class="pre-loader">
+        <div class="pre-loader-container">
+            <div class="pre-loader-header">
+                <!-- Titre -->
+                <div class="header">
+                    <h1>Le Jeu de la vie</h1>
+                    <div class="header-wrapper"></div>
+                </div>
+                <!-- Sous-titre -->
+                <div class="header">
+                    <h1 class="animate" data-text="est un">est un </h1>
+                    &nbsp;&nbsp;
+                    <h1>automate</h1>
+                    <div class="header-wrapper"></div>
+                </div>
+                <!-- Sous-titre -->
+                <div class="header">
+                    <h1>cellulaire</h1>
+                    <div class="header-wrapper"></div>
+                </div>
+                <!-- Sous-titre -->
+                <div class="header">
+                    <h1>imaginé par </h1>
+                    <div class="header-wrapper"></div>
+                </div>
+                <!-- Sous-titre -->
+                <div class="header">
+                    <h1>John Horton Conway</h1>
+                    &nbsp;&nbsp;
+                    <h1 class="animate" data-text="en 1970"> en 1970</h1>
+                    <div class="header-wrapper"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto p-4">
+        <div class="flex flex-col items-center">
+            <!-- Titre principal -->
+            <h1 class="text-4xl mb-8">Le jeu de la vie de John Horton Conway</h1>
+            <div class="flex justify-center space-x-4 mb-8">
+                <!-- Autres boutons -->
+                <h5>30% de chance que chaque cellule soit vivante</h5>
+                <button id="generateRandom" class="bg-gray-700 px-4 py-2 rounded">Générer une configuration aléatoire</button>
+                <h5>50% de chance que chaque cellule soit vivante</h5>
+                <button id="generateRandom5" class="bg-gray-700 px-4 py-2 rounded">Générer une configuration aléatoire</button>
+            </div>
+            <div id="gridContainer" class="mb-8">
+                <!-- Grille -->
+                <div id="grid" class="grid grid-cols-10 gap-1 menu-icon">
+                    <!-- Les cellules de la grille seront générées par JavaScript -->
+                </div>
+            </div>
+            <!-- Boutons à gauche -->
+            <div class="flex justify-start space-x-4 mb-8">
+                <button id="startGame" class="bg-gray-700 px-4 py-2 rounded">Démarrer le jeu</button>
+                <button id="pauseGame" class="bg-gray-700 px-4 py-2 rounded">Mettre en pause le jeu</button>
+                <button id="reset" class="bg-gray-700 px-4 py-2 rounded">Réinitialiser</button>
+                <button id="zoomIn" class="bg-gray-700 px-4 py-2 rounded">Zoom avant</button>
+                <button id="zoomOut" class="bg-gray-700 px-4 py-2 rounded">Zoom arrière</button>
+                <button id="speedUp" class="bg-gray-700 px-4 py-2 rounded">Accélérer</button>
+                <button id="speedDown" class="bg-gray-700 px-4 py-2 rounded">Ralentir</button>
+            </div>
+            <!-- Boutons à droite -->
+            <div class="flex justify-between w-1/2 mb-8">
+                <div>
+                    <!-- Ajuster la taille de la grille -->
+                    <h2 class="text-lg mb-2">Ajuster la taille de la grille :</h2>
+                    <div class="flex space-x-2 mb-2">
+                        <input type="number" id="rows" placeholder="Lignes" class="px-2 py-1 rounded bg-gray-700" value="10" max="25">
+                        <input type="number" id="columns" placeholder="Colonnes" class="px-2 py-1 rounded bg-gray-700" value="10" max="25">
+                        <button id="updateSize" class="bg-gray-700 px-4 py-2 rounded">Mettre à jour la taille de la grille</button>
+                    </div>
+                </div>
+                <div id="cellStats" class="text-right">
+                    <!-- Statistiques des cellules -->
+                    <h2 class="text-lg mb-2">Nombre de cellules :</h2>
+                    <p>en vie : <span id="aliveCount">0</span></p>
+                    <p>mortes : <span id="deadCount">0</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Scripts -->
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+        <script>
+            // Code JavaScript pour le préchargeur
+            gsap.from(".header > h1", 2, {
+                opacity: 0.1,
+                ease: "power3.inOut",
+                delay: 0,
+            });
+            // Reste du script...
+        </script>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
