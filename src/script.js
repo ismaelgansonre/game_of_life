@@ -38,7 +38,7 @@ speedDownButton.addEventListener('click', speedDown);
 startGameButton.addEventListener('click', startGame);
 resetButton.addEventListener('click', resetGame);
 updateSizeButton.addEventListener('click', updateSize);
-
+pauseGameButton.addEventListener('click', () => clearInterval(intervalId));
 // Functions
 function zoomIn() {
     zoomLevel = Math.min(zoomLevel + zoomStep, 2); // Max zoom level 2x
@@ -135,6 +135,26 @@ function nextGeneration() {
     updateGrid();
 }
 
+/**
+ * Calculates the number of alive neighbors for a given cell.
+ * @param {number} x - The x-coordinate of the cell.
+ * @param {number} y - The y-coordinate of the cell.
+ * @returns {number} The count of alive neighbors.
+ */
+function getAliveNeighbors(x, y) {
+    let count = 0;
+    for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+            if (dx === 0 && dy === 0) continue;
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx >= 0 && nx < columns && ny >= 0 && ny < rows) {
+                count += cells[nx + ny * columns] ? 1 : 0;
+            }
+        }
+    }
+    return count;
+}
 function getAliveNeighbors(x, y) {
     let count = 0;
     for (let dx = -1; dx <= 1; dx++) {
